@@ -1,8 +1,5 @@
 package shopgun
 
-// Offers list of offers
-type Offers []Offer
-
 // Offer type
 type Offer struct {
 	ID          string `json:"id"`
@@ -16,8 +13,8 @@ type Offer struct {
 	Links       struct {
 		Webshop interface{} `json:"webshop"`
 	} `json:"links"`
-	RunFrom     string   `json:"run_from"`
-	RunTill     string   `json:"run_till"`
+	RunFrom     Time     `json:"run_from"`
+	RunTill     Time     `json:"run_till"`
 	DealerURL   string   `json:"dealer_url"`
 	StoreURL    string   `json:"store_url"`
 	CatalogURL  string   `json:"catalog_url"`

@@ -63,7 +63,7 @@ func (c *Client) DealerSearch(query string, pagination Pagination) ([]*Dealer, e
 }
 
 // Catalogs returns a list of catalogs from dealer id's given
-func (c *Client) Catalogs(dealerIDs []string, pagination Pagination) (*Catalogs, error) {
+func (c *Client) Catalogs(dealerIDs []string, pagination Pagination) ([]*Catalog, error) {
 	p := map[string]string{
 		"dealer_ids": stringListArgs(dealerIDs),
 		"limit":      fmt.Sprint(pagination.Limit),
@@ -71,7 +71,7 @@ func (c *Client) Catalogs(dealerIDs []string, pagination Pagination) (*Catalogs,
 	}
 	path := buildPath("/catalogs", p)
 
-	cats := &Catalogs{}
+	cats := []*Catalog{}
 	err := c.doGet(path, cats)
 	if err != nil {
 		return nil, err
@@ -80,7 +80,7 @@ func (c *Client) Catalogs(dealerIDs []string, pagination Pagination) (*Catalogs,
 }
 
 // Offers returns a list of offers from catalog id's given
-func (c *Client) Offers(catalogIDs []string, pagination Pagination) (*Offers, error) {
+func (c *Client) Offers(catalogIDs []string, pagination Pagination) ([]*Offer, error) {
 	p := map[string]string{
 		"catalog_ids": stringListArgs(catalogIDs),
 		"limit":       fmt.Sprint(pagination.Limit),
@@ -88,7 +88,7 @@ func (c *Client) Offers(catalogIDs []string, pagination Pagination) (*Offers, er
 	}
 	path := buildPath("/offers", p)
 
-	offers := &Offers{}
+	offers := []*Offer{}
 	err := c.doGet(path, offers)
 	if err != nil {
 		return nil, err

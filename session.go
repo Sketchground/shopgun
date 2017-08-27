@@ -9,6 +9,7 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+	"time"
 )
 
 // Session request
@@ -20,7 +21,7 @@ type Session struct {
 type SessionResponse struct {
 	Token       string      `json:"token"`
 	Reference   string      `json:"reference"`
-	Expires     string      `json:"expires"`
+	Expires     Time        `json:"expires"`
 	User        interface{} `json:"user"`
 	Permissions struct {
 		Guest []string `json:"guest"`
@@ -30,7 +31,9 @@ type SessionResponse struct {
 }
 
 func (c *Client) session() (SessionResponse, error) {
-	//TODO:  If session is still valid, then return session.
+	if c.sr.Token != "" && !c.sr.Expires.After(time.Now()) {
+		return c.sr, nil
+	}
 
 	path := fmt.Sprintf("%v/sessions", c.basePath)
 	data, err := json.Marshal(&Session{c.apiKey})
@@ -79,6 +82,7 @@ func (c *Client) doGet(path string, out interface{}) error {
 	req.Header.Set("Accept", "application/json")
 	req.Header.Set("X-Token", sr.Token)
 
+	// Sign request.
 	sign := sha256.New()
 	sign.Write([]byte(c.secret + sr.Token))
 	sum := sign.Sum(nil)

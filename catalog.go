@@ -1,16 +1,13 @@
 package shopgun
 
-// Catalogs type
-type Catalogs []Catalog
-
 // Catalog type
 type Catalog struct {
 	ID          string        `json:"id"`
 	Ern         string        `json:"ern"`
 	Label       interface{}   `json:"label"`
 	Background  interface{}   `json:"background"`
-	RunFrom     string        `json:"run_from"`
-	RunTill     string        `json:"run_till"`
+	RunFrom     Time          `json:"run_from"`
+	RunTill     Time          `json:"run_till"`
 	PageCount   int           `json:"page_count"`
 	OfferCount  int           `json:"offer_count"`
 	Branding    Branding      `json:"branding"`
