@@ -94,12 +94,13 @@ func (c *Client) doGet(path string, out interface{}) error {
 	}
 
 	//TODO: Keep an eye on X-RateLimit
-	bod, _ := ioutil.ReadAll(resp.Body)
-	log.Print(string(bod))
 
-	//dec := json.NewDecoder(resp.Body)
-	//err = dec.Decode(&out)
-	err = json.Unmarshal(bod, &out)
+	body, _ := ioutil.ReadAll(resp.Body)
+	if resp.StatusCode > 299 {
+		return fmt.Errorf("Shopgun returned: %v, Body: %v", resp.Status, body)
+	}
+
+	err = json.Unmarshal(body, out)
 	if err != nil {
 		return err
 	}

@@ -27,9 +27,9 @@ type Offer struct {
 
 // Pricing type
 type Pricing struct {
-	Price    int    `json:"price"`
-	PrePrice int    `json:"pre_price"`
-	Currency string `json:"currency"`
+	Price    float64 `json:"price"`
+	PrePrice float64 `json:"pre_price"`
+	Currency string  `json:"currency"`
 }
 
 // Quantity type
@@ -47,8 +47,8 @@ type Unit struct {
 
 // Si type
 type Si struct {
-	Symbol string `json:"symbol"`
-	Factor int    `json:"factor"`
+	Symbol string  `json:"symbol"`
+	Factor float64 `json:"factor"`
 }
 
 // Range type

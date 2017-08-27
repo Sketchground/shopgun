@@ -55,7 +55,7 @@ func (c *Client) DealerSearch(query string, pagination Pagination) ([]*Dealer, e
 	path := buildPath("/dealers/search", p)
 
 	dealers := []*Dealer{}
-	err := c.doGet(path, dealers)
+	err := c.doGet(path, &dealers)
 	if err != nil {
 		return nil, err
 	}
@@ -72,7 +72,7 @@ func (c *Client) Catalogs(dealerIDs []string, pagination Pagination) ([]*Catalog
 	path := buildPath("/catalogs", p)
 
 	cats := []*Catalog{}
-	err := c.doGet(path, cats)
+	err := c.doGet(path, &cats)
 	if err != nil {
 		return nil, err
 	}
@@ -89,7 +89,7 @@ func (c *Client) Offers(catalogIDs []string, pagination Pagination) ([]*Offer, e
 	path := buildPath("/offers", p)
 
 	offers := []*Offer{}
-	err := c.doGet(path, offers)
+	err := c.doGet(path, &offers)
 	if err != nil {
 		return nil, err
 	}
